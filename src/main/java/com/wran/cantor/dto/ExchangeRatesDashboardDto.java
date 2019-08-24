@@ -1,68 +1,74 @@
 package com.wran.cantor.dto;
 
-public class ExchangeRatesDashboardDto {
+import java.io.Serializable;
 
-    private CurrencyRatesDashboardDto USD;
-    private CurrencyRatesDashboardDto EUR;
-    private CurrencyRatesDashboardDto CHF;
-    private CurrencyRatesDashboardDto RUB;
-    private CurrencyRatesDashboardDto CZK;
-    private CurrencyRatesDashboardDto GBP;
+public class ExchangeRatesDashboardDto implements Serializable {
 
-    public ExchangeRatesDashboardDto(CurrencyRatesDashboardDto USD, CurrencyRatesDashboardDto EUR, CurrencyRatesDashboardDto CHF, CurrencyRatesDashboardDto RUB, CurrencyRatesDashboardDto CZK, CurrencyRatesDashboardDto GBP) {
-        this.USD = USD;
-        this.EUR = EUR;
-        this.CHF = CHF;
-        this.RUB = RUB;
-        this.CZK = CZK;
-        this.GBP = GBP;
+    private CurrencyRatesDashboardDto usd;
+    private CurrencyRatesDashboardDto eur;
+    private CurrencyRatesDashboardDto chf;
+    private CurrencyRatesDashboardDto rub;
+    private CurrencyRatesDashboardDto czk;
+    private CurrencyRatesDashboardDto gbp;
+
+    public ExchangeRatesDashboardDto() {
     }
 
-    public CurrencyRatesDashboardDto getUSD() {
-        return USD;
+    public ExchangeRatesDashboardDto(CurrencyRatesDashboardDto usd, CurrencyRatesDashboardDto eur,
+                                     CurrencyRatesDashboardDto chf, CurrencyRatesDashboardDto rub, CurrencyRatesDashboardDto czk, CurrencyRatesDashboardDto gbp) {
+        this.usd = usd;
+        this.eur = eur;
+        this.chf = chf;
+        this.rub = rub;
+        this.czk = czk;
+        this.gbp = gbp;
     }
 
-    public void setUSD(CurrencyRatesDashboardDto USD) {
-        this.USD = USD;
+    public CurrencyRatesDashboardDto getUsd() {
+        return usd;
     }
 
-    public CurrencyRatesDashboardDto getEUR() {
-        return EUR;
+    public void setUsd(CurrencyRatesDashboardDto usd) {
+        this.usd = usd;
     }
 
-    public void setEUR(CurrencyRatesDashboardDto EUR) {
-        this.EUR = EUR;
+    public CurrencyRatesDashboardDto getEur() {
+        return eur;
     }
 
-    public CurrencyRatesDashboardDto getCHF() {
-        return CHF;
+    public void setEur(CurrencyRatesDashboardDto eur) {
+        this.eur = eur;
     }
 
-    public void setCHF(CurrencyRatesDashboardDto CHF) {
-        this.CHF = CHF;
+    public CurrencyRatesDashboardDto getChf() {
+        return chf;
     }
 
-    public CurrencyRatesDashboardDto getRUB() {
-        return RUB;
+    public void setChf(CurrencyRatesDashboardDto chf) {
+        this.chf = chf;
     }
 
-    public void setRUB(CurrencyRatesDashboardDto RUB) {
-        this.RUB = RUB;
+    public CurrencyRatesDashboardDto getRub() {
+        return rub;
     }
 
-    public CurrencyRatesDashboardDto getCZK() {
-        return CZK;
+    public void setRub(CurrencyRatesDashboardDto rub) {
+        this.rub = rub;
     }
 
-    public void setCZK(CurrencyRatesDashboardDto CZK) {
-        this.CZK = CZK;
+    public CurrencyRatesDashboardDto getCzk() {
+        return czk;
     }
 
-    public CurrencyRatesDashboardDto getGBP() {
-        return GBP;
+    public void setCzk(CurrencyRatesDashboardDto czk) {
+        this.czk = czk;
     }
 
-    public void setGBP(CurrencyRatesDashboardDto GBP) {
-        this.GBP = GBP;
+    public CurrencyRatesDashboardDto getGbp() {
+        return gbp;
+    }
+
+    public void setGbp(CurrencyRatesDashboardDto gbp) {
+        this.gbp = gbp;
     }
 }

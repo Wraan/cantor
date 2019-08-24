@@ -1,6 +1,8 @@
 package com.wran.cantor.dto;
 
-public class CurrencyRatesDashboardDto {
+import java.io.Serializable;
+
+public class CurrencyRatesDashboardDto implements Serializable {
 
     private String code;
     private int unit;

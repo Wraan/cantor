@@ -30,7 +30,6 @@ public class SettingsController {
     @GetMapping("/settings")
     public String settingsPage(Model model, Principal principal){
         User user = userService.findByUsername(principal.getName());
-        System.out.println(user.getFirstName() + " " + user.getLastName());
         model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
         return "settings";
     }

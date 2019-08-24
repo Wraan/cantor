@@ -42,11 +42,15 @@ public class User implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "wallet_id", referencedColumnName = "id")
+    private Wallet wallet;
+
     public User() {
     }
 
     public User(String username, String password, String email, String firstName, String lastName,
-                Calendar registrationDate, List<Role> roles) {
+                Calendar registrationDate, List<Role> roles, Wallet wallet) {
 
         this.username = username;
         this.password = password;
@@ -55,6 +59,7 @@ public class User implements UserDetails {
         this.lastName = lastName;
         this.registrationDate = registrationDate;
         this.roles = roles;
+        this.wallet = wallet;
         this.enabled = true;
         accountNonExpired = true;
         accountNonLocked = true;
@@ -62,7 +67,7 @@ public class User implements UserDetails {
     }
 
     public User(String username, String password, String email, String firstName, String lastName,
-                Calendar registrationDate, List<Role> roles, boolean accountNonExpired, boolean accountNonLocked,
+                Calendar registrationDate, List<Role> roles, Wallet wallet, boolean accountNonExpired, boolean accountNonLocked,
                 boolean credentialsNonExpired) {
 
         this.username = username;
@@ -72,6 +77,7 @@ public class User implements UserDetails {
         this.lastName = lastName;
         this.registrationDate = registrationDate;
         this.roles = roles;
+        this.wallet = wallet;
         this.accountNonExpired = accountNonExpired;
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
@@ -183,5 +189,13 @@ public class User implements UserDetails {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 }

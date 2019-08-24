@@ -34,124 +34,200 @@
         </div>
     </div>
 </nav>
-<div class="container">
+<div class="container-fluid">
     <div class="row mt-2">
         <h1 class="col-12 text-center">Dashboard</h1>
         <div class="col-12 row">
-            <div class="col-6 form-group border">
-                <h2>Currencies</h2>
+            <div class="col-5 offset-1">
+                <h2 class="text-center">Currencies</h2>
                 <div class="col-12">
                     <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
                             <th scope="col">Currency</th>
                             <th scope="col">Unit</th>
-                            <th scope="col">Value</th>
+                            <th scope="col">Buy Price</th>
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <th scope="row">USD</th>
-                            <td>1</td>
-                            <td>4.1751</td>
-                            <td>@mdo</td>
+                            <th class="text-center" scope="row">USD</th>
+                            <td id="USDBuyUnits" th:text="${rates.usd.unit}"></td>
+                            <td id="USDBuyPrice" th:text="${rates.usd.purchaseValue}"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="USDBuyAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="buyUSD" type="submit"
+                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">EUR</th>
-                            <td>1</td>
-                            <td>4.1751</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">EUR</th>
+                            <td id="EURBuyUnits" th:text="${rates.eur.unit}"></td>
+                            <td id="EURBuyPrice" th:text="${rates.eur.purchaseValue}"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="EURBuyAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="buyEUR" type="submit"
+                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">CHF</th>
-                            <td>1</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">CHF</th>
+                            <td id="CHFBuyUnits" th:text="${rates.chf.unit}"></td>
+                            <td id="CHFBuyPrice" th:text="${rates.chf.purchaseValue}"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="CHFBuyAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="buyCHF" type="submit"
+                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">RUB</th>
-                            <td>100</td>
-                            <td>7.2589</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">RUB</th>
+                            <td id="RUBBuyUnits" th:text="${rates.rub.unit}"></td>
+                            <td id="RUBBuyPrice" th:text="${rates.rub.purchaseValue}"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="RUBBuyAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="buyRUB" type="submit"
+                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">CZK</th>
-                            <td>100</td>
-                            <td>14.6671</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">CZK</th>
+                            <td id="CZKBuyUnits" th:text="${rates.czk.unit}"></td>
+                            <td id="CZKBuyPrice" th:text="${rates.czk.purchaseValue}"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="CZKBuyAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="buyCZK" type="submit"
+                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">GBP</th>
-                            <td>1</td>
-                            <td>5.5902</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">GBP</th>
+                            <td id="GBPBuyUnits" th:text="${rates.gbp.unit}"></td>
+                            <td id="GBPBuyPrice" th:text="${rates.gbp.purchaseValue}"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="GBPBuyAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="buyGBP" type="submit"
+                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="mt-5 mb-5 border">
-                    <div class="text-center h3" th:text="'Available PLN: ' + ${availableFunds}"></div>
                 </div>
             </div>
-            <div class="col-6 form-group border">
-                <h2>My wallet</h2>
+            <div class="col-5">
+                <h2 class="text-center">My wallet</h2>
                 <div class="col-12">
                     <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
                             <th scope="col">Currency</th>
-                            <th scope="col">Unit</th>
-                            <th scope="col">Value</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Sell Price</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Total Value</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <th scope="row">USD</th>
-                            <td>1</td>
-                            <td >4.1751</td>
-                            <td>@mdo</td>
+                            <th class="text-center" scope="row">USD</th>
+                            <td id="USDSellPrice" th:text="${rates.usd.sellValue}"></td>
+                            <td id="USDWalletAmount" th:text="${wallet.usdAmount}"></td>
+                            <td id="USDWalletValue"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="USDSellAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="sellUSD" type="submit"
+                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">EUR</th>
-                            <td>1</td>
-                            <td>4.1751</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">EUR</th>
+                            <td id="EURSellPrice" th:text="${rates.eur.sellValue}"></td>
+                            <td id="EURWalletAmount" th:text="${wallet.eurAmount}"></td>
+                            <td id="EURWalletValue"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="EURSellAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="sellEUR" type="submit"
+                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">CHF</th>
-                            <td>1</td>
-                            <td>4.1751</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">CHF</th>
+                            <td id="CHFSellPrice" th:text="${rates.chf.sellValue}"></td>
+                            <td id="CHFWalletAmount" th:text="${wallet.chfAmount}"></td>
+                            <td id="CHFWalletValue"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="CHFSellAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="sellCHF" type="submit"
+                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">RUB</th>
-                            <td>100</td>
-                            <td>7.6671</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">RUB</th>
+                            <td id="RUBSellPrice" th:text="${rates.rub.sellValue}"></td>
+                            <td id="RUBWalletAmount" th:text="${wallet.rubAmount}"></td>
+                            <td id="RUBWalletValue"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="RUBSellAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="sellRUB" type="submit"
+                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">CZK</th>
-                            <td>100</td>
-                            <td>14.6671</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">CZK</th>
+                            <td id="CZKSellPrice" th:text="${rates.czk.sellValue}"></td>
+                            <td id="CZKWalletAmount" th:text="${wallet.czkAmount}"></td>
+                            <td id="CZKWalletValue"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="CZKSellAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="sellCZK" type="submit"
+                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">GBP</th>
-                            <td>1</td>
-                            <td>5.5902</td>
-                            <td>@fat</td>
+                            <th class="text-center" scope="row">GBP</th>
+                            <td id="GBPSellPrice" th:text="${rates.gbp.sellValue}"></td>
+                            <td id="GBPWalletAmount" th:text="${wallet.gbpAmount}"></td>
+                            <td id="GBPWalletValue"></td>
+                            <td>
+                                <div class="col-12 row nopadding">
+                                    <input id="GBPSellAmount" type="number" class="col-7 form-control mr-3">
+                                    <button id="sellGBP" type="submit"
+                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="mt-3 mb-3 border">
-                    <div class="text-center h3" th:text="'Available PLN: ' + ${availableFunds}"></div>
-                </div>
-
+            </div>
+            <div class="col-5 offset-6">
+                <div class="text-center h3 mt-2 mb-2" id="funds" th:text="'Available PLN: ' + ${wallet.funds}"></div>
             </div>
         </div>
+
 
 
     </div>
@@ -160,6 +236,8 @@
 <script src="/webjars/jquery/3.1.0/jquery.js"></script>
 <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script src="/webjars/popper.js/1.14.1/popper.js"></script>
+<script src="/webjars/sockjs-client/1.0.2/sockjs.js"></script>
+<script src="/webjars/stomp-websocket/2.3.3/stomp.js"></script>
 <script src="/js/dashboard.js"></script>
 </body>
 </html>

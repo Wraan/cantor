@@ -1,6 +1,7 @@
 package com.wran.cantor.config;
 
 import com.wran.cantor.model.User;
+import com.wran.cantor.model.Wallet;
 import com.wran.cantor.model.security.Role;
 import com.wran.cantor.repository.RoleRepository;
 import com.wran.cantor.repository.UserRepository;
@@ -52,11 +53,13 @@ public class StartupEssentialData implements ApplicationRunner {
         if(!userRepository.existsByUsername("admin"))
             users.add(new User("admin", passwordEncoder.encode("password"),
                     "admin@admin.com", "Admin", "Admin", Calendar.getInstance(),
-                    Arrays.asList(roleRepository.findByName("ROLE_ADMIN"), roleRepository.findByName("ROLE_USER"))));
+                    Arrays.asList(roleRepository.findByName("ROLE_ADMIN"), roleRepository.findByName("ROLE_USER")),
+                    new Wallet(1500, 1, 10, 100, 1000, 10000, 100000)));
         if(!userRepository.existsByUsername("user"))
             users.add(new User("user", passwordEncoder.encode("password"),
                     "user@user.com", "User", "User", Calendar.getInstance(),
-                    Arrays.asList(roleRepository.findByName("ROLE_USER"))));
+                    Arrays.asList(roleRepository.findByName("ROLE_USER")),
+                    new Wallet(1500, 100, 100, 100, 100, 100, 100)));
 
         if(!users.isEmpty())
             userRepository.saveAll(users);

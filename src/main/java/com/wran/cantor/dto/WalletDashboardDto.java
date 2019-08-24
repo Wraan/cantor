@@ -2,12 +2,7 @@ package com.wran.cantor.dto;
 
 import java.io.Serializable;
 
-public class RegisterUserForm implements Serializable {
-    private String firstName;
-    private String lastName;
-    private String username;
-    private String password;
-    private String email;
+public class WalletDashboardDto implements Serializable {
 
     private float funds;
     private int usdAmount;
@@ -17,47 +12,26 @@ public class RegisterUserForm implements Serializable {
     private int czkAmount;
     private int gbpAmount;
 
-    public RegisterUserForm() {
+    public WalletDashboardDto() {
     }
 
-    public String getUsername() {
-        return username;
+    public WalletDashboardDto(float funds, int usdAmount, int eurAmount, int chfAmount, int rubAmount,
+                              int czkAmount, int gbpAmount) {
+        this.funds = funds;
+        this.usdAmount = usdAmount;
+        this.eurAmount = eurAmount;
+        this.chfAmount = chfAmount;
+        this.rubAmount = rubAmount;
+        this.czkAmount = czkAmount;
+        this.gbpAmount = gbpAmount;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public float getFunds() {
+        return funds;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFunds(float funds) {
+        this.funds = funds;
     }
 
     public int getUsdAmount() {
@@ -106,13 +80,5 @@ public class RegisterUserForm implements Serializable {
 
     public void setGbpAmount(int gbpAmount) {
         this.gbpAmount = gbpAmount;
-    }
-
-    public float getFunds() {
-        return funds;
-    }
-
-    public void setFunds(float funds) {
-        this.funds = funds;
     }
 }

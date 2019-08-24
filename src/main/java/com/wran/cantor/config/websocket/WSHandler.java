@@ -3,9 +3,11 @@ package com.wran.cantor.config.websocket;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wran.cantor.config.CurrenciesHistoryStorage;
+import com.wran.cantor.dto.ExchangeRatesDashboardDto;
 import com.wran.cantor.dto.ExchangeRatesWebsocketDto;
-import com.wran.cantor.model.Message;
+import com.wran.cantor.model.ExchangeRates;
 import com.wran.cantor.service.CurrenciesService;
+import com.wran.cantor.service.DtoConverterService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,10 @@ public class WSHandler implements WebSocketHandler {
     @Autowired
     private CurrenciesService currenciesService;
 
+    @Lazy
+    @Autowired
+    private DtoConverterService converterService;
+
     @Lazy @Autowired
     private SocketConnector socketConnector;
 
@@ -57,11 +63,11 @@ public class WSHandler implements WebSocketHandler {
         }
 
         if(currencies != null){
-            currenciesHistoryStorage.addToList(currencies);
-            currenciesService.save(currencies);
+            ExchangeRates rates = currenciesService.save(currencies);
+            ExchangeRatesDashboardDto ratesDto = converterService.convertToDashboardDto(rates);
+            currenciesHistoryStorage.addToList(ratesDto);
 
-            Message out = new Message("Working!", "Server");
-            template.convertAndSend("/topic/greetings", out);
+            template.convertAndSend("/ws/rates", ratesDto);
         }
     }
 

@@ -1,8 +1,7 @@
 package com.wran.cantor.service;
 
 import com.wran.cantor.config.CurrenciesHistoryStorage;
-import com.wran.cantor.dto.ExchangeRatesWebsocketDto;
-import com.wran.cantor.dto.CurrencyRatesWebsocketDto;
+import com.wran.cantor.dto.*;
 import com.wran.cantor.model.CurrencyRates;
 import com.wran.cantor.model.ExchangeRates;
 import com.wran.cantor.repository.ExchangeRatesRepository;
@@ -18,33 +17,21 @@ public class CurrenciesService {
     @Autowired
     private ExchangeRatesRepository exchangeRatesRepository;
 
+    @Autowired
+    private DtoConverterService converterService;
+
 
     public ExchangeRates save(ExchangeRatesWebsocketDto currencies) {
-        ExchangeRates rates = convertFromExchangeRatesDto(currencies);
+        ExchangeRates rates = converterService.convertFromExchangeRatesDto(currencies);
         return exchangeRatesRepository.save(rates);
     }
     public ExchangeRates save(ExchangeRates exchangeRates){
         return exchangeRatesRepository.save(exchangeRates);
     }
 
-    private ExchangeRates convertFromExchangeRatesDto(ExchangeRatesWebsocketDto currencies){
-        ExchangeRates rates = new ExchangeRates();
-        rates.setPublicationDate(currencies.getPublicationDate());
-
-        currencies.getItems().forEach(currency ->{
-            if(currency.getCode().equals("USD")) rates.setUsd(convertFromCurrencyRatesDto(currency));
-            if(currency.getCode().equals("EUR")) rates.setEur(convertFromCurrencyRatesDto(currency));
-            if(currency.getCode().equals("CHF")) rates.setChf(convertFromCurrencyRatesDto(currency));
-            if(currency.getCode().equals("RUB")) rates.setRub(convertFromCurrencyRatesDto(currency));
-            if(currency.getCode().equals("CZK")) rates.setCzk(convertFromCurrencyRatesDto(currency));
-            if(currency.getCode().equals("GBP")) rates.setGbp(convertFromCurrencyRatesDto(currency));
-        });
-
-        return rates;
+    public ExchangeRates getNewestExchangeRates(){
+        return exchangeRatesRepository.findTopByOrderByIdDesc();
     }
 
-    private CurrencyRates convertFromCurrencyRatesDto(CurrencyRatesWebsocketDto currency){
-        return new CurrencyRates(currency.getCode(), currency.getUnit(), currency.getPurchasePrice(),
-                currency.getSellPrice(), currency.getAveragePrice());
-    }
+
 }

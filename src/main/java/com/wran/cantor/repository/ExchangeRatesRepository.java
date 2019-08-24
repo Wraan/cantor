@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ExchangeRatesRepository extends JpaRepository<ExchangeRates, Long> {
+    ExchangeRates findTopByOrderByIdDesc();
 }

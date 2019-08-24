@@ -4,6 +4,7 @@ import com.wran.cantor.dto.RegisterUserForm;
 import com.wran.cantor.exception.EmailAlreadyExistsException;
 import com.wran.cantor.exception.UserAlreadyExistsException;
 import com.wran.cantor.model.User;
+import com.wran.cantor.model.Wallet;
 import com.wran.cantor.repository.RoleRepository;
 import com.wran.cantor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,10 @@ public class UserService {
                 passwordEncoder.encode(decodeFromBase64(registerForm.getPassword())),
                 decodeFromBase64(registerForm.getEmail()), decodeFromBase64(registerForm.getFirstName()),
                 decodeFromBase64(registerForm.getLastName()), Calendar.getInstance(),
-                Arrays.asList(roleRepository.findByName("ROLE_USER")));
+                Arrays.asList(roleRepository.findByName("ROLE_USER")),
+                new Wallet(registerForm.getFunds(), registerForm.getUsdAmount(), registerForm.getEurAmount(),
+                        registerForm.getChfAmount(), registerForm.getRubAmount(), registerForm.getCzkAmount(),
+                        registerForm.getGbpAmount()));
 
         return userRepository.save(user);
     }

@@ -1,6 +1,8 @@
 package com.wran.cantor.controller;
 
 import com.wran.cantor.model.User;
+import com.wran.cantor.service.CurrenciesService;
+import com.wran.cantor.service.DtoConverterService;
 import com.wran.cantor.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +17,18 @@ public class DashboardController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CurrenciesService currenciesService;
+
+    @Autowired
+    private DtoConverterService converterService;
+
     @GetMapping("/")
     public String dashboardPage(Model model, Principal principal){
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
-        model.addAttribute("availableFunds", 1500.0f);
+        model.addAttribute("wallet", converterService.convertToDashboardDto(user.getWallet()));
+        model.addAttribute("rates", converterService.convertToDashboardDto(currenciesService.getNewestExchangeRates()));
 
         return "dashboard";
     }

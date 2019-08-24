@@ -1,0 +1,51 @@
+package com.wran.cantor.service;
+
+import com.wran.cantor.dto.*;
+import com.wran.cantor.model.CurrencyRates;
+import com.wran.cantor.model.ExchangeRates;
+import com.wran.cantor.model.Wallet;
+import org.springframework.stereotype.Service;
+
+@Service
+public class DtoConverterService {
+
+    public ExchangeRates convertFromExchangeRatesDto(ExchangeRatesWebsocketDto currencies){
+        ExchangeRates rates = new ExchangeRates();
+        rates.setPublicationDate(currencies.getPublicationDate());
+
+        currencies.getItems().forEach(currency ->{
+            if(currency.getCode().equals("USD")) rates.setUsd(convertFromCurrencyRatesDto(currency));
+            if(currency.getCode().equals("EUR")) rates.setEur(convertFromCurrencyRatesDto(currency));
+            if(currency.getCode().equals("CHF")) rates.setChf(convertFromCurrencyRatesDto(currency));
+            if(currency.getCode().equals("RUB")) rates.setRub(convertFromCurrencyRatesDto(currency));
+            if(currency.getCode().equals("CZK")) rates.setCzk(convertFromCurrencyRatesDto(currency));
+            if(currency.getCode().equals("GBP")) rates.setGbp(convertFromCurrencyRatesDto(currency));
+        });
+
+        return rates;
+    }
+
+    public CurrencyRates convertFromCurrencyRatesDto(CurrencyRatesWebsocketDto currency){
+        return new CurrencyRates(currency.getCode(), currency.getUnit(), currency.getPurchasePrice(),
+                currency.getSellPrice(), currency.getAveragePrice());
+    }
+
+
+
+    public ExchangeRatesDashboardDto convertToDashboardDto(ExchangeRates rates) {
+        return new ExchangeRatesDashboardDto(convertToDashboardDto(rates.getUsd()),
+                convertToDashboardDto(rates.getEur()), convertToDashboardDto(rates.getChf()),
+                convertToDashboardDto(rates.getRub()), convertToDashboardDto(rates.getCzk()),
+                convertToDashboardDto(rates.getGbp()));
+    }
+
+    public CurrencyRatesDashboardDto convertToDashboardDto(CurrencyRates rates) {
+        return new CurrencyRatesDashboardDto(rates.getCode(), rates.getUnit(),
+                rates.getPurchaseValue(), rates.getSellValue());
+    }
+
+    public WalletDashboardDto convertToDashboardDto(Wallet wallet) {
+        return new WalletDashboardDto(wallet.getFunds(), wallet.getUsdAmount(), wallet.getEurAmount(),
+                wallet.getChfAmount(), wallet.getRubAmount(), wallet.getCzkAmount(), wallet.getGbpAmount());
+    }
+}
