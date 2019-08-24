@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Register</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/all.css" rel="stylesheet">
+
+    <link href="/webjars/font-awesome/5.10.1/css/all.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar fixed-top navbar-expand-lg navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse mt-1 mb-1 col-11" id="navbarNavAltMarkup">
+            <div class="navbar-nav mr-auto col-1">
+                <a class="navbar-brand" th:href="@{/}">Cantor</a>
+            </div>
+        </div>
+        <!--<div class="navbar-nav col-1">-->
+            <!--<div>-->
+                <!--<a th:href="@{/profile}"><i class="fas fa-cog fa-2x text-white mr-3"></i></a>-->
+                <!--<a th:href="@{/logout}"><i class="fas fa-power-off fa-2x text-white"></i></a>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</nav>
+<div class="container">
+    <div class="row mt-5">
+        <h1 class="offset-2">Registration Form</h1>
+        <div class="offset-2 col-8">
+            <div class="col-12">
+                <div class="form-group">
+                    <div id="nameFormatError" class="alert alert-danger error">
+                        First or last name format is <strong>invalid</strong>. 2-24 characters a-z A-Z space and
+                        -.
+                    </div>
+                    <div id="name" class="row">
+                        <div class="col-6 form-group">
+                            <label>First Name</label>
+                            <input id="formFirstName" type="text" class="form-control">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label>Last Name</label>
+                            <input id="formLastName" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <div id="usernameExistsError" class="alert alert-danger error">
+                        Username already <strong>exists</strong>.
+                    </div>
+                    <div id="usernameFormatError" class="alert alert-danger error">
+                        Username format is <strong>invalid</strong>. 4-24 characters a-z 0-9.
+                    </div>
+                    <input id="formUsername" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <div id="emailExistsError" class="alert alert-danger error">
+                        Email already <strong>exists</strong>.
+                    </div>
+                    <div id="emailFormatError" class="alert alert-danger error">
+                        Email format is <strong>invalid</strong>.
+                    </div>
+                    <input id="formEmail" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <div id="passwordNotMatchError" class="alert alert-danger error col-12">
+                        Passwords <strong>do not match</strong>!
+                    </div>
+                    <div id="passwordFormatError" class="alert alert-danger error col-12">
+                        Password format is <strong>invalid</strong>. 6-24 characters a-z A-Z 0-9.
+                    </div>
+                    <div id="passwords" class="row">
+                        <div class="col-6 form-group">
+                            <label>Password</label>
+                            <input id="formPass" type="password" class="form-control">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label>Confirm Password</label>
+                            <input id="repass" type="password" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-3">
+                <button id="submit" type="submit" class="btn btn-lg btn-info float-right">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/webjars/jquery/3.1.0/jquery.js"></script>
+<script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="/webjars/popper.js/1.14.1/popper.js"></script>
+<script src="/js/register.js"></script>
+</body>
+</html>
