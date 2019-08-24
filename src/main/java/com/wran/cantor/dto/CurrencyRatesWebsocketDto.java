@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class Currency implements Serializable {
+public class CurrencyRatesWebsocketDto implements Serializable {
 
     @JsonProperty("Name")
     private String name;
@@ -19,7 +19,7 @@ public class Currency implements Serializable {
     @JsonProperty("AveragePrice")
     private float averagePrice;
 
-    public Currency() {
+    public CurrencyRatesWebsocketDto() {
     }
 
     public String getName() {

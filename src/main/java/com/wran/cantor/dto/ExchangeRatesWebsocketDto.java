@@ -6,14 +6,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Currencies implements Serializable {
+public class ExchangeRatesWebsocketDto implements Serializable {
 
     @JsonProperty("PublicationDate")
     private Date publicationDate;
     @JsonProperty("Items")
-    private List<Currency> items;
+    private List<CurrencyRatesWebsocketDto> items;
 
-    public Currencies() {
+    public ExchangeRatesWebsocketDto() {
     }
 
     public Date getPublicationDate() {
@@ -24,11 +24,11 @@ public class Currencies implements Serializable {
         this.publicationDate = publicationDate;
     }
 
-    public List<Currency> getItems() {
+    public List<CurrencyRatesWebsocketDto> getItems() {
         return items;
     }
 
-    public void setItems(List<Currency> items) {
+    public void setItems(List<CurrencyRatesWebsocketDto> items) {
         this.items = items;
     }
 }

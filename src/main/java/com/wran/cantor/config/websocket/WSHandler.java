@@ -3,8 +3,9 @@ package com.wran.cantor.config.websocket;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wran.cantor.config.CurrenciesHistoryStorage;
-import com.wran.cantor.dto.Currencies;
+import com.wran.cantor.dto.ExchangeRatesWebsocketDto;
 import com.wran.cantor.model.Message;
+import com.wran.cantor.service.CurrenciesService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,10 @@ public class WSHandler implements WebSocketHandler {
     @Autowired
     private CurrenciesHistoryStorage currenciesHistoryStorage;
 
+    @Lazy
+    @Autowired
+    private CurrenciesService currenciesService;
+
     @Lazy @Autowired
     private SocketConnector socketConnector;
 
@@ -44,15 +49,17 @@ public class WSHandler implements WebSocketHandler {
 
     @Override
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> message) throws Exception {
-        Currencies currencies = null;
+        ExchangeRatesWebsocketDto currencies = null;
         try{
-            currencies = objectMapper.readValue(message.getPayload().toString(), Currencies.class);
+            currencies = objectMapper.readValue(message.getPayload().toString(), ExchangeRatesWebsocketDto.class);
         }
         catch (JsonParseException e){
         }
 
         if(currencies != null){
             currenciesHistoryStorage.addToList(currencies);
+            currenciesService.save(currencies);
+
             Message out = new Message("Working!", "Server");
             template.convertAndSend("/topic/greetings", out);
         }
