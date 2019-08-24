@@ -4,3 +4,7 @@ body {
 .error{
     display: none;
 }
+
+.successAlert{
+    display: none;
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/all.css" rel="stylesheet">
+
+    <link href="/webjars/font-awesome/5.10.1/css/all.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar fixed-top navbar-expand-lg navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse mt-1 mb-1 col-11" id="navbarNavAltMarkup">
+            <div class="navbar-nav mr-auto col-1">
+                <a class="navbar-brand" th:href="@{/}">Cantor</a>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-nav col-1">
+        <div>
+            <a th:href="@{/settings}"><i class="fas fa-cog fa-2x text-white mr-3"></i></a>
+            <a th:href="@{/logout}"><i class="fas fa-power-off fa-2x text-white"></i></a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row mt-5">
+        <h1 class="col-12 text-center">Settings</h1>
+        <div class="offset-2 col-8 mt-3">
+            <div class="form-group col-8 offset-2">
+                <label>Edit your available funds:</label>
+                <div id="fundsFormatError" class="alert alert-danger error col-12">
+                    Funds format is <strong>invalid</strong>. Must be more or equal 0 and max 4 decimal places.
+                </div>
+                <div id="fundsChangeSuccess" class="alert alert-success successAlert">
+                    Funds has been changed <strong>successfully</strong>.
+                </div>
+                <input id="funds" name="funds" type="number" class="form-control">
+            </div>
+            <div class="form-group col-8 offset-2">
+                <button id="submitFunds" type="submit" class="btn btn-success btn-block col-4 offset-4 text-center">
+                    Submit
+                </button>
+            </div>
+            <hr class="my-3">
+        </div>
+        <div class="offset-2 col-8">
+            <div class="form-group col-8 offset-2">
+                <label>Change your email address:</label>
+                <div id="emailExistsError" class="alert alert-danger error">
+                    Email already <strong>exists</strong>.
+                </div>
+                <div id="emailFormatError" class="alert alert-danger error">
+                    Email format is <strong>invalid</strong>.
+                </div>
+                <div id="emailChangeSuccess" class="alert alert-success successAlert">
+                    Email has been changed <strong>successfully</strong>.
+                </div>
+                <input id="email" name="email" type="text" class="form-control">
+            </div>
+            <div class="form-group col-8 offset-2">
+                <button type="submit" id="submitEmail" class="btn btn-success btn-block col-4 offset-4 text-center">
+                    Submit
+                </button>
+            </div>
+            <hr class="my-3">
+        </div>
+        <div class="offset-2 col-8">
+            <div class="form-group col-8 offset-2">
+                <div id="passwordNotMatchError" class="alert alert-danger error col-12">
+                    Passwords <strong>do not match</strong>!
+                </div>
+                <div id="passwordFormatError" class="alert alert-danger error col-12">
+                    Password format is <strong>invalid</strong>. 6-24 characters a-z A-Z 0-9.
+                </div>
+                <div id="passwordChangeSuccess" class="alert alert-success successAlert">
+                    Password has been changed <strong>successfully</strong>.
+                </div>
+                <label>Change your password:</label>
+                <input id="pass" type="password" class="form-control">
+                <label>Confirm Password</label>
+                <input id="repass" type="password" class="form-control">
+            </div>
+            <div class="form-group col-8 offset-2">
+                <button type="submit" id="submitPassword" class="btn btn-success btn-block col-4 offset-4 text-center">
+                    Submit
+                </button>
+            </div>
+            <hr class="my-3">
+        </div>
+    </div>
+</div>
+
+<script src="/webjars/jquery/3.1.0/jquery.js"></script>
+<script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="/webjars/popper.js/1.14.1/popper.js"></script>
+<script src="/js/settings.js"></script>
+</body>
+</html>

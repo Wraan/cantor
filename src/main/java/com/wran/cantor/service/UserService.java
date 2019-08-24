@@ -48,4 +48,16 @@ public class UserService {
     private String decodeFromBase64(String base){
         return new String(Base64.getDecoder().decode(base.trim().getBytes()));
     }
+
+    public boolean existsByEmail(String email){
+        return userRepository.existsByEmail(email);
+    }
+
+    public User save(User user){
+        return userRepository.save(user);
+    }
+
+    public String encodePassword(String password){
+        return passwordEncoder.encode(password);
+    }
 }

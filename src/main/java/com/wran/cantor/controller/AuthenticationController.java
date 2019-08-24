@@ -31,15 +31,15 @@ public class AuthenticationController {
 
     @GetMapping("/register")
     public String registerPage(Authentication authentication){
-        if(authentication.isAuthenticated())
-            return "/";
+        if(authentication != null && authentication.isAuthenticated())
+            return "redirect:/";
         return "register";
     }
 
     @GetMapping("/login")
     public String loginPage(Authentication authentication){
-        if(authentication.isAuthenticated())
-            return "/";
+        if(authentication != null && authentication.isAuthenticated())
+            return "redirect:/";
         return "login";
     }
 }
