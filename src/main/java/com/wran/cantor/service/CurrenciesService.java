@@ -8,6 +8,8 @@ import com.wran.cantor.repository.ExchangeRatesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CurrenciesService {
 
@@ -34,4 +36,7 @@ public class CurrenciesService {
     }
 
 
+    public List<ExchangeRates> getLatest20ExchangeRates() {
+        return exchangeRatesRepository.findTop20ByOrderByIdDesc();
+    }
 }

@@ -1,5 +1,7 @@
 package com.wran.cantor.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 public class RegisterUserForm implements Serializable {
@@ -10,11 +12,17 @@ public class RegisterUserForm implements Serializable {
     private String email;
 
     private float funds;
+    @JsonProperty("usd")
     private int usdAmount;
+    @JsonProperty("eur")
     private int eurAmount;
+    @JsonProperty("chf")
     private int chfAmount;
+    @JsonProperty("rub")
     private int rubAmount;
+    @JsonProperty("czk")
     private int czkAmount;
+    @JsonProperty("gbp")
     private int gbpAmount;
 
     public RegisterUserForm() {

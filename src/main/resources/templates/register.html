@@ -87,7 +87,71 @@
                     </div>
                 </div>
                 <hr class="my-3">
-                <button id="submit" type="submit" class="btn btn-lg btn-info float-right">Submit</button>
+                <h3 class="col-12 text-center">Your wallet</h3>
+                <div class="row form-group col-6">
+                    <label>Available PLN: </label>
+                    <div id="fundsFormatError" class="alert alert-danger error">
+                        Format is <strong>invalid</strong>. Must be more or equal 0 and max 4 decimal places.
+                    </div>
+                    <input id="funds" type="number" class="form-control" value="0">
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label>USD: </label>
+                            <div id="usdFormatError" class="alert alert-danger error col-12">
+                                Format is <strong>invalid</strong>. Must be integer.
+                            </div>
+                            <input id="usd" type="number" class="form-control" value="0">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label>EUR: </label>
+                            <div id="eurFormatError" class="alert alert-danger error col-12">
+                                Format is <strong>invalid</strong>. Must be integer.
+                            </div>
+                            <input id="eur" type="number" class="form-control" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label>CHF: </label>
+                            <div id="chfFormatError" class="alert alert-danger error col-12">
+                                Format is <strong>invalid</strong>. Must be integer.
+                            </div>
+                            <input id="chf" type="number" class="form-control" value="0">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label>RUB: </label>
+                            <div id="rubFormatError" class="alert alert-danger error col-12">
+                                Format is <strong>invalid</strong>. Must be integer.
+                            </div>
+                            <input id="rub" type="number" class="form-control" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label>CZK: </label>
+                            <div id="czkFormatError" class="alert alert-danger error col-12">
+                                Format is <strong>invalid</strong>. Must be integer.
+                            </div>
+                            <input id="czk" type="number" class="form-control" value="0">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label>GBP: </label>
+                            <div id="gbpFormatError" class="alert alert-danger error col-12">
+                                Format is <strong>invalid</strong>. Must be integer.
+                            </div>
+                            <input id="gbp" type="number" class="form-control" value="0">
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-3">
+                <button id="submit" type="submit" class="btn btn-lg btn-info float-right mb-5">Submit</button>
             </div>
         </div>
     </div>

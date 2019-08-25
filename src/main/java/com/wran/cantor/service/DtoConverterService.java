@@ -1,13 +1,20 @@
 package com.wran.cantor.service;
 
 import com.wran.cantor.dto.*;
-import com.wran.cantor.model.CurrencyRates;
-import com.wran.cantor.model.ExchangeRates;
-import com.wran.cantor.model.Wallet;
+import com.wran.cantor.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class DtoConverterService {
+
+    @Autowired
+    private CurrenciesService currenciesService;
 
     public ExchangeRates convertFromExchangeRatesDto(ExchangeRatesWebsocketDto currencies){
         ExchangeRates rates = new ExchangeRates();
@@ -47,5 +54,31 @@ public class DtoConverterService {
     public WalletDashboardDto convertToDashboardDto(Wallet wallet) {
         return new WalletDashboardDto(wallet.getFunds(), wallet.getUsdAmount(), wallet.getEurAmount(),
                 wallet.getChfAmount(), wallet.getRubAmount(), wallet.getCzkAmount(), wallet.getGbpAmount());
+    }
+
+    public List<ExchangeRatesDashboardDto> convertToDashboardDto(List<ExchangeRates> latestRates) {
+        List<ExchangeRatesDashboardDto> outputRates = new ArrayList<>();
+        for (ExchangeRates latestRate : latestRates) {
+            outputRates.add(convertToDashboardDto(latestRate));
+        }
+        return outputRates;
+    }
+
+    public Transaction convertFromDashboardDto(TransactionDashboardDto transactionDto) {
+        ExchangeRates exchangeRates = currenciesService.getNewestExchangeRates();
+        CurrencyRates currencyRates;
+        switch (transactionDto.getCode()){
+            case "USD": currencyRates = exchangeRates.getUsd(); break;
+            case "EUR": currencyRates = exchangeRates.getEur(); break;
+            case "CHF": currencyRates = exchangeRates.getChf(); break;
+            case "RUB": currencyRates = exchangeRates.getRub(); break;
+            case "CZK": currencyRates = exchangeRates.getCzk(); break;
+            case "GBP": currencyRates = exchangeRates.getGbp(); break;
+            default: currencyRates = new CurrencyRates();
+        }
+        float rate = transactionDto.getAction().equals("BUY") ? currencyRates.getPurchaseValue() : currencyRates.getSellValue();
+
+        return new Transaction(transactionDto.getAction(), transactionDto.getCode(),
+                transactionDto.getAmount(), rate, new Date(System.currentTimeMillis()));
     }
 }

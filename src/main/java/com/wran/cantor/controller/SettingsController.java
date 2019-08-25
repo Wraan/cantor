@@ -46,7 +46,7 @@ public class SettingsController {
         }
 
         User user = userService.findByUsername(principal.getName());
-        //add funds
+        user.getWallet().setFunds(funds);
         userService.save(user);
 
         LOGGER.info("Funds changed to {} for user: {}", funds, user.getUsername());
@@ -59,14 +59,15 @@ public class SettingsController {
         email = new String(Base64.getDecoder().decode(email.trim().getBytes()));
 
         if(userService.existsByEmail(email))
-            return new ResponseEntity<>("User already exists!", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Email already exists!", HttpStatus.CONFLICT);
 
         User user = userService.findByUsername(principal.getName());
-        user.setEmail(email);
-        userService.save(user);
+        if(!userService.changeEmail(user, email)){
+            LOGGER.info("Invalid email format {}. Has not been changed.", email);
+            return new ResponseEntity<>("Invalid email format!", HttpStatus.NOT_ACCEPTABLE);
+        }
 
         LOGGER.info("Email changed to {} for user: {}", email, user.getUsername());
-
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
@@ -75,11 +76,12 @@ public class SettingsController {
         password = new String(Base64.getDecoder().decode(password.trim().getBytes()));
 
         User user = userService.findByUsername(principal.getName());
-        user.setPassword(userService.encodePassword(password));
-        userService.save(user);
+        if(!userService.changePassword(user, password)){
+            LOGGER.info("Invalid password format. Has not been changed.");
+            return new ResponseEntity<>("Invalid email format!", HttpStatus.NOT_ACCEPTABLE);
+        }
 
         LOGGER.info("Password changed for user: {}", user.getUsername());
-
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 

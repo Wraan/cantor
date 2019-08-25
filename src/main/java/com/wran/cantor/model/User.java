@@ -46,6 +46,9 @@ public class User implements UserDetails {
     @JoinColumn(name = "wallet_id", referencedColumnName = "id")
     private Wallet wallet;
 
+    @OneToMany(mappedBy="user")
+    private List<Transaction> transactions = new ArrayList<>();
+
     public User() {
     }
 
@@ -197,5 +200,13 @@ public class User implements UserDetails {
 
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

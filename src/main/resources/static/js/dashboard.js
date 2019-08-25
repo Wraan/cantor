@@ -1,9 +1,13 @@
 $( document ).ready(function() {
     var stompClient = null;
-    var latestRates = null;
-    var funds = '${wallet.funds}';
 
-    console.log(funds);
+    var wallet = null;
+    var rates = null;
+    var transaction = {
+        action: "",
+        code: "",
+        amount: 0
+    };
 
     connect();
     calculateTotalValues();
@@ -14,10 +18,13 @@ $( document ).ready(function() {
         stompClient.debug = null;
         stompClient.connect({}, function (frame) {
             stompClient.subscribe('/ws/rates', function (message) {
-                latestRates = JSON.parse(message.body);
+                var latestRates = JSON.parse(message.body);
                 refreshValues(latestRates);
                 calculateTotalValues();
-                console.log(latestRates);
+
+                clearAlerts();
+                $("#pricesChangedError").show();
+                $("#acceptAction").prop('disabled', true);
             });
         });
     }
@@ -53,4 +60,144 @@ $( document ).ready(function() {
         $("#GBPWalletValue").text(Math.round($("#GBPSellPrice").text() * $("#GBPWalletAmount").text() * 10000) / 10000);
 
     }
+
+    $(".buy-btn").click(function () {
+        clearAlerts();
+        $("#acceptAction").prop('disabled', false);
+
+        transaction.action = "BUY";
+        transaction.code = $(this).val().toUpperCase();
+
+        $("#actionType").text(transaction.action);
+        $("#selectedCurrency").text(transaction.code);
+
+        $.ajax({
+            method: "GET",
+            url: "/dashboard/transactionData",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                wallet = data.wallet;
+                rates = data.rates;
+
+                updateBuyModalValues(transaction.code);
+            }
+        });
+    });
+    $(".sell-btn").click(function () {
+        clearAlerts();
+        $("#acceptAction").prop('disabled', false);
+
+        transaction.action = "SELL";
+        transaction.code = $(this).val().toUpperCase();
+
+        $("#actionType").text(transaction.action);
+        $("#selectedCurrency").text(transaction.code);
+
+        $.ajax({
+            method: "GET",
+            url: "/dashboard/transactionData",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                wallet = data.wallet;
+                rates = data.rates;
+
+                updateSellModalValues(transaction.code);
+            }
+        });
+    });
+
+    function updateBuyModalValues(code) {
+        var cost = 0;
+        if(code === "USD") {
+            transaction.amount = $("#USDBuyAmount").val() * rates.usd.unit;
+            cost = transaction.amount * rates.usd.purchaseValue;
+        }
+        if(code === "EUR") {
+            transaction.amount = $("#EURBuyAmount").val() * rates.eur.unit;
+            cost = transaction.amount * rates.eur.purchaseValue;
+        }
+        if(code === "CHF") {
+            transaction.amount = $("#CHFBuyAmount").val() * rates.chf.unit;
+            cost = transaction.amount * rates.chf.purchaseValue;
+        }
+        if(code === "RUB") {
+            transaction.amount = $("#RUBBuyAmount").val() * rates.rub.unit;
+            cost = transaction.amount * rates.rub.purchaseValue;
+        }
+        if(code === "CZK") {
+            transaction.amount = $("#CZKBuyAmount").val() * rates.czk.unit;
+            cost = transaction.amount * rates.czk.purchaseValue;
+        }
+        if(code === "GBP") {
+            transaction.amount = $("#GBPBuyAmount").val() * rates.gbp.unit;
+            cost = transaction.amount * rates.gbp.purchaseValue;
+        }
+
+        $("#currencyAmount").text(transaction.amount);
+        $("#cost").text(cost);
+    }
+    function updateSellModalValues(code) {
+        var cost = 0;
+        if(code === "USD") {
+            transaction.amount = $("#USDSellAmount").val() * rates.usd.unit;
+            cost = transaction.amount * rates.usd.sellValue;
+        }
+        if(code === "EUR") {
+            transaction.amount = $("#EURSellAmount").val() * rates.eur.unit;
+            cost = transaction.amount * rates.eur.sellValue;
+        }
+        if(code === "CHF") {
+            transaction.amount = $("#CHFSellAmount").val() * rates.chf.unit;
+            cost = transaction.amount * rates.chf.sellValue;
+        }
+        if(code === "RUB") {
+            transaction.amount = $("#RUBSellAmount").val() * rates.rub.unit;
+            cost = transaction.amount * rates.rub.sellValue;
+        }
+        if(code === "CZK") {
+            transaction.amount = $("#CZKSellAmount").val() * rates.czk.unit;
+            cost = transaction.amount * rates.czk.sellValue;
+        }
+        if(code === "GBP") {
+            transaction.amount = $("#GBPSellAmount").val() * rates.gbp.unit;
+            cost = transaction.amount * rates.gbp.sellValue;
+        }
+
+        $("#currencyAmount").text(transaction.amount);
+        $("#cost").text(cost);
+    }
+
+    $("#acceptAction").click(function () {
+        $("#acceptAction").prop('disabled', true);
+
+        $.ajax({
+            method: "POST",
+            url: "/dashboard/transaction",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(transaction),
+            statusCode: {
+                200: function(message) {
+                    $("#successTransactionAlert").show();
+                    console.log(message);
+                },
+                400: function (message) {
+                    showEmailExistsError();
+                    console.log(message);
+                }
+            }
+        });
+
+
+    });
+
+    function clearAlerts() {
+        $(".error").hide();
+        $(".successAlert").hide();
+    }
+
+
 });
+

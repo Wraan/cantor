@@ -80,7 +80,7 @@ function showEmailExistsError() {
 }
 
 function validateFunds(funds){
-    var regex = new RegExp("^\\d{1,10}(?:[.,]\\d{3})*(?:[.,]\\d{0,4})$");
+    var regex = new RegExp("^\\d{1,10}.?\\d{0,4}$")
     if(regex.test(funds) && funds >= 0)
         return true;
     else{

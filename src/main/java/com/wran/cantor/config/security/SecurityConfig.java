@@ -43,7 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/**",
             "/",
             "/test",
-            "/settings"
+            "/settings",
+            "/settings/**",
+            "/dashboard/**"
     };
 
     private static final String[] ADMIN_MATCHERS = {

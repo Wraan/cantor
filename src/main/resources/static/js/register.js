@@ -12,6 +12,15 @@ $("#submit").click(function () {
     if(!validateUsername(username)) return;
     if(!validateEmail(email)) return;
     if(!validatePassword(password)) return;
+    if(!validateFundsAndCurrencies()) return;
+
+    var funds = $("#funds").val();
+    var usd = $("#usd").val();
+    var eur = $("#eur").val();
+    var chf = $("#chf").val();
+    var rub = $("#rub").val();
+    var czk = $("#czk").val();
+    var gbp = $("#gbp").val();
 
     if(confirmPassword()){
         firstName = btoa(firstName);
@@ -20,7 +29,8 @@ $("#submit").click(function () {
         email = btoa(email);
         password = btoa(password);
 
-        var registerForm = {firstName: firstName, lastName: lastName, username: username, password:password, email:email};
+        var registerForm = {firstName: firstName, lastName: lastName, username: username, password:password, email:email,
+        funds: funds, usd: usd, eur: eur, chf: chf, rub: rub, czk: czk, gbp: gbp};
         var json = JSON.stringify(registerForm);
 
         $.ajax({
@@ -108,6 +118,41 @@ function validatePassword(password){
         showInvalidPasswordFormatError();
         return false;
     }
+}
+
+function validateFundsAndCurrencies() {
+    var fundsRegex = new RegExp("^\\d{1,10}.?\\d{0,4}$");
+    var currencyReges = new RegExp("^\\d{1,10}$");
+
+    if(!fundsRegex.test($("#funds").val())){
+        $("#fundsFormatError").show();
+        return false;
+    }
+    if(!currencyReges.test($("#usd").val())){
+        $("#usdFormatError").show();
+        return false;
+    }
+    if(!currencyReges.test($("#eur").val())){
+        $("#eurFormatError").show();
+        return false;
+    }
+    if(!currencyReges.test($("#chf").val())){
+        $("#chfFormatError").show();
+        return false;
+    }
+    if(!currencyReges.test($("#rub").val())){
+        $("#rubFormatError").show();
+        return false;
+    }
+    if(!currencyReges.test($("#czk").val())){
+        $("#czkFormatError").show();
+        return false;
+    }
+    if(!currencyReges.test($("#gbp").val())){
+        $("#gbpFormatError").show();
+        return false;
+    }
+    return true;
 }
 
 function showInvalidNameFormatError() {

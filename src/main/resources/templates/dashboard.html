@@ -36,6 +36,55 @@
 </nav>
 <div class="container-fluid">
     <div class="row mt-2">
+        <!-- Modal -->
+        <div class="modal fade" id="accept-modal" tabindex="-1" role="dialog" aria-labelledby="accept-modal"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Accept action</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="offset-2 col-8">
+                                <div class="well">
+                                    <h4>You are going to <b id="actionType">BUY</b>:</h4>
+                                    <p></p>
+                                    <h3><b id="currencyAmount">123</b> <b id="selectedCurrency">USD</b></h3>
+                                    <h3> for </h3>
+                                    <h3><b id="cost">1234</b> PLN</h3>
+                                    <hr class="my-3">
+                                    <div class="row">
+                                        <div id="pricesChangedError" class="alert alert-danger error">
+                                            Prices have changed. Disabling the option to buy. Please try again.
+                                        </div>
+                                        <div id="actionError" class="alert alert-danger error">
+                                            Error occurred while processing the transaction. Please try again.
+                                        </div>
+                                        <div id="successTransactionAlert" class="alert alert-success successAlert">
+                                            Transaction has been completed successfully.
+                                        </div>
+                                        <div class="col-6 form-group">
+                                            <button id="acceptAction" type="button"
+                                                    class="btn btn-success col-8 text-center form-control float-left">Buy</button>
+                                        </div>
+                                        <div class="col-6 form-group">
+                                            <button id="declineAction" type="button"
+                                                    class="btn btn-danger col-8 text-center form-control float-right"
+                                                    data-toggle="modal" data-target="#accept-modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End of modal-->
         <h1 class="col-12 text-center">Dashboard</h1>
         <div class="col-12 row">
             <div class="col-5 offset-1">
@@ -58,8 +107,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="USDBuyAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="buyUSD" type="submit"
-                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                    <button id="buyUSD" type="button"
+                                            class="btn btn-success col-4 text-center form-control float-right buy-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="usd">Buy</button>
                                 </div>
                             </td>
                         </tr>
@@ -70,8 +120,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="EURBuyAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="buyEUR" type="submit"
-                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                    <button id="buyEUR" type="button"
+                                            class="btn btn-success col-4 text-center form-control float-right buy-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="eur">Buy</button>
                                 </div>
                             </td>
                         </tr>
@@ -82,8 +133,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="CHFBuyAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="buyCHF" type="submit"
-                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                    <button id="buyCHF" type="button"
+                                            class="btn btn-success col-4 text-center form-control float-right buy-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="chf">Buy</button>
                                 </div>
                             </td>
                         </tr>
@@ -94,8 +146,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="RUBBuyAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="buyRUB" type="submit"
-                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                    <button id="buyRUB" type="button"
+                                            class="btn btn-success col-4 text-center form-control float-right buy-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="rub">Buy</button>
                                 </div>
                             </td>
                         </tr>
@@ -106,8 +159,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="CZKBuyAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="buyCZK" type="submit"
-                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                    <button id="buyCZK" type="button"
+                                            class="btn btn-success col-4 text-center form-control float-right buy-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="czk">Buy</button>
                                 </div>
                             </td>
                         </tr>
@@ -118,8 +172,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="GBPBuyAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="buyGBP" type="submit"
-                                            class="btn btn-success col-4 text-center form-control float-right">Buy</button>
+                                    <button id="buyGBP" type="button"
+                                            class="btn btn-success col-4 text-center form-control float-right buy-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="gbp">Buy</button>
                                 </div>
                             </td>
                         </tr>
@@ -150,7 +205,8 @@
                                 <div class="col-12 row nopadding">
                                     <input id="USDSellAmount" type="number" class="col-7 form-control mr-3">
                                     <button id="sellUSD" type="submit"
-                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                            class="btn btn-success col-4 text-center form-control sell-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="usd">Sell</button>
                                 </div>
                             </td>
                         </tr>
@@ -162,8 +218,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="EURSellAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="sellEUR" type="submit"
-                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                    <button id="sellEUR" type="button"
+                                            class="btn btn-success col-4 text-center form-control sell-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="eur">Sell</button>
                                 </div>
                             </td>
                         </tr>
@@ -175,8 +232,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="CHFSellAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="sellCHF" type="submit"
-                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                    <button id="sellCHF" type="button"
+                                            class="btn btn-success col-4 text-center form-control sell-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="chf">Sell</button>
                                 </div>
                             </td>
                         </tr>
@@ -188,8 +246,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="RUBSellAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="sellRUB" type="submit"
-                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                    <button id="sellRUB" type="button"
+                                            class="btn btn-success col-4 text-center form-control sell-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="rub">Sell</button>
                                 </div>
                             </td>
                         </tr>
@@ -201,8 +260,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="CZKSellAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="sellCZK" type="submit"
-                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                    <button id="sellCZK" type="button"
+                                            class="btn btn-success col-4 text-center form-control sell-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="czk">Sell</button>
                                 </div>
                             </td>
                         </tr>
@@ -214,8 +274,9 @@
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="GBPSellAmount" type="number" class="col-7 form-control mr-3">
-                                    <button id="sellGBP" type="submit"
-                                            class="btn btn-success col-4 text-center form-control">Sell</button>
+                                    <button id="sellGBP" type="button"
+                                            class="btn btn-success col-4 text-center form-control sell-btn"
+                                            data-toggle="modal" data-target="#accept-modal" value="gbp">Sell</button>
                                 </div>
                             </td>
                         </tr>

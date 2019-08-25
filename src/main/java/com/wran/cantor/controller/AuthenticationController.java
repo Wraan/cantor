@@ -1,6 +1,7 @@
 package com.wran.cantor.controller;
 
 import com.wran.cantor.dto.RegisterUserForm;
+import com.wran.cantor.exception.CredentialsFormatException;
 import com.wran.cantor.exception.EmailAlreadyExistsException;
 import com.wran.cantor.exception.UserAlreadyExistsException;
 import com.wran.cantor.service.UserService;
@@ -25,6 +26,8 @@ public class AuthenticationController {
             userService.register(registerForm);
         } catch (UserAlreadyExistsException | EmailAlreadyExistsException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        } catch (CredentialsFormatException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
