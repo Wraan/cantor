@@ -16,6 +16,8 @@ public class SocketConnector {
 
     private WebSocketConnectionManager manager;
 
+    private boolean connected;
+
     public void reconnect(){
         manager.stop();
         manager.start();
@@ -35,5 +37,13 @@ public class SocketConnector {
     @Bean
     public StandardWebSocketClient client() {
         return new StandardWebSocketClient();
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
     }
 }

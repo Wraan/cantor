@@ -50,6 +50,7 @@ public class WSHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
+        socketConnector.setConnected(true);
         LOGGER.info("Successfully connected to server!");
     }
 
@@ -67,7 +68,8 @@ public class WSHandler implements WebSocketHandler {
             ExchangeRatesDashboardDto ratesDto = converterService.convertToDashboardDto(rates);
             currenciesHistoryStorage.addToList(ratesDto);
 
-            template.convertAndSend("/ws/rates", ratesDto);
+            if(socketConnector.isConnected())
+                template.convertAndSend("/ws/rates", ratesDto);
         }
     }
 
@@ -80,6 +82,7 @@ public class WSHandler implements WebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
         LOGGER.info("Connection closed. Trying to reconnect...");
+        socketConnector.setConnected(false);
         socketConnector.reconnect();
 
     }

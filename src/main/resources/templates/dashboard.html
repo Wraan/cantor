@@ -86,6 +86,9 @@
         </div>
         <!--End of modal-->
         <h1 class="col-12 text-center">Dashboard</h1>
+        <div id="connectionError" class="alert alert-danger connectionError col-12">
+            Error occurred while connecting to outside server. Please try again later or refresh the page.
+        </div>
         <div class="col-12 row">
             <div class="col-5 offset-1">
                 <h2 class="text-center">Currencies</h2>
@@ -102,8 +105,8 @@
                         <tbody>
                         <tr>
                             <th class="text-center" scope="row">USD</th>
-                            <td id="USDBuyUnits" th:text="${rates.usd.unit}"></td>
-                            <td id="USDBuyPrice" th:text="${rates.usd.purchaseValue}"></td>
+                            <td id="USDBuyUnits"></td>
+                            <td id="USDBuyPrice"></td>
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="USDBuyAmount" type="number" class="col-7 form-control mr-3">
@@ -115,8 +118,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">EUR</th>
-                            <td id="EURBuyUnits" th:text="${rates.eur.unit}"></td>
-                            <td id="EURBuyPrice" th:text="${rates.eur.purchaseValue}"></td>
+                            <td id="EURBuyUnits"></td>
+                            <td id="EURBuyPrice"></td>
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="EURBuyAmount" type="number" class="col-7 form-control mr-3">
@@ -128,8 +131,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">CHF</th>
-                            <td id="CHFBuyUnits" th:text="${rates.chf.unit}"></td>
-                            <td id="CHFBuyPrice" th:text="${rates.chf.purchaseValue}"></td>
+                            <td id="CHFBuyUnits"></td>
+                            <td id="CHFBuyPrice"></td>
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="CHFBuyAmount" type="number" class="col-7 form-control mr-3">
@@ -141,8 +144,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">RUB</th>
-                            <td id="RUBBuyUnits" th:text="${rates.rub.unit}"></td>
-                            <td id="RUBBuyPrice" th:text="${rates.rub.purchaseValue}"></td>
+                            <td id="RUBBuyUnits"></td>
+                            <td id="RUBBuyPrice"></td>
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="RUBBuyAmount" type="number" class="col-7 form-control mr-3">
@@ -154,8 +157,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">CZK</th>
-                            <td id="CZKBuyUnits" th:text="${rates.czk.unit}"></td>
-                            <td id="CZKBuyPrice" th:text="${rates.czk.purchaseValue}"></td>
+                            <td id="CZKBuyUnits"></td>
+                            <td id="CZKBuyPrice"></td>
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="CZKBuyAmount" type="number" class="col-7 form-control mr-3">
@@ -167,8 +170,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">GBP</th>
-                            <td id="GBPBuyUnits" th:text="${rates.gbp.unit}"></td>
-                            <td id="GBPBuyPrice" th:text="${rates.gbp.purchaseValue}"></td>
+                            <td id="GBPBuyUnits"></td>
+                            <td id="GBPBuyPrice"></td>
                             <td>
                                 <div class="col-12 row nopadding">
                                     <input id="GBPBuyAmount" type="number" class="col-7 form-control mr-3">
@@ -198,8 +201,8 @@
                         <tbody>
                         <tr>
                             <th class="text-center" scope="row">USD</th>
-                            <td id="USDSellPrice" th:text="${rates.usd.sellValue}"></td>
-                            <td id="USDWalletAmount" th:text="${wallet.usdAmount}"></td>
+                            <td id="USDSellPrice"></td>
+                            <td id="USDWalletAmount"></td>
                             <td id="USDWalletValue"></td>
                             <td>
                                 <div class="col-12 row nopadding">
@@ -212,8 +215,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">EUR</th>
-                            <td id="EURSellPrice" th:text="${rates.eur.sellValue}"></td>
-                            <td id="EURWalletAmount" th:text="${wallet.eurAmount}"></td>
+                            <td id="EURSellPrice"></td>
+                            <td id="EURWalletAmount"></td>
                             <td id="EURWalletValue"></td>
                             <td>
                                 <div class="col-12 row nopadding">
@@ -226,8 +229,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">CHF</th>
-                            <td id="CHFSellPrice" th:text="${rates.chf.sellValue}"></td>
-                            <td id="CHFWalletAmount" th:text="${wallet.chfAmount}"></td>
+                            <td id="CHFSellPrice"></td>
+                            <td id="CHFWalletAmount"></td>
                             <td id="CHFWalletValue"></td>
                             <td>
                                 <div class="col-12 row nopadding">
@@ -240,8 +243,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">RUB</th>
-                            <td id="RUBSellPrice" th:text="${rates.rub.sellValue}"></td>
-                            <td id="RUBWalletAmount" th:text="${wallet.rubAmount}"></td>
+                            <td id="RUBSellPrice"></td>
+                            <td id="RUBWalletAmount"></td>
                             <td id="RUBWalletValue"></td>
                             <td>
                                 <div class="col-12 row nopadding">
@@ -254,8 +257,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">CZK</th>
-                            <td id="CZKSellPrice" th:text="${rates.czk.sellValue}"></td>
-                            <td id="CZKWalletAmount" th:text="${wallet.czkAmount}"></td>
+                            <td id="CZKSellPrice"></td>
+                            <td id="CZKWalletAmount"></td>
                             <td id="CZKWalletValue"></td>
                             <td>
                                 <div class="col-12 row nopadding">
@@ -268,8 +271,8 @@
                         </tr>
                         <tr>
                             <th class="text-center" scope="row">GBP</th>
-                            <td id="GBPSellPrice" th:text="${rates.gbp.sellValue}"></td>
-                            <td id="GBPWalletAmount" th:text="${wallet.gbpAmount}"></td>
+                            <td id="GBPSellPrice"></td>
+                            <td id="GBPWalletAmount"></td>
                             <td id="GBPWalletValue"></td>
                             <td>
                                 <div class="col-12 row nopadding">
@@ -285,7 +288,7 @@
                 </div>
             </div>
             <div class="col-5 offset-6">
-                <div class="text-center h3 mt-2 mb-2" id="funds" th:text="'Available PLN: ' + ${wallet.funds}"></div>
+                <div class="text-center h3 mt-2 mb-2" id="funds">Available PLN: </div>
             </div>
         </div>
 

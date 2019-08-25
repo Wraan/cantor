@@ -10,7 +10,7 @@ $( document ).ready(function() {
     };
 
     connect();
-    calculateTotalValues();
+    getDataFromServer();
 
     function connect() {
         var socket = new SockJS('/websocket');
@@ -30,6 +30,13 @@ $( document ).ready(function() {
     }
 
     function refreshValues(rates) {
+        $("#USDWalletAmount").text(wallet.usdAmount);
+        $("#EURWalletAmount").text(wallet.eurAmount);
+        $("#CHFWalletAmount").text(wallet.chfAmount);
+        $("#RUBWalletAmount").text(wallet.rubAmount);
+        $("#CZKWalletAmount").text(wallet.czkAmount);
+        $("#GBPWalletAmount").text(wallet.gbpAmount);
+
         $("#USDBuyPrice").text(rates.usd.purchaseValue);
         $("#EURBuyPrice").text(rates.eur.purchaseValue);
         $("#CHFBuyPrice").text(rates.chf.purchaseValue);
@@ -61,6 +68,18 @@ $( document ).ready(function() {
 
     }
 
+    function disableButtons(){
+        $("#acceptAction").prop('disabled', true);
+        $(".sell-btn").prop('disabled', true);
+        $(".buy-btn").prop('disabled', true);
+    }
+
+    function enableButtons(){
+        $("#acceptAction").prop('disabled', false);
+        $(".sell-btn").prop('disabled', false);
+        $(".buy-btn").prop('disabled', false);
+    }
+
     $(".buy-btn").click(function () {
         clearAlerts();
         $("#acceptAction").prop('disabled', false);
@@ -71,19 +90,9 @@ $( document ).ready(function() {
         $("#actionType").text(transaction.action);
         $("#selectedCurrency").text(transaction.code);
 
-        $.ajax({
-            method: "GET",
-            url: "/dashboard/transactionData",
-            dataType: "json",
-            contentType: "application/json",
-            success: function (data) {
-                wallet = data.wallet;
-                rates = data.rates;
-
-                updateBuyModalValues(transaction.code);
-            }
-        });
+        getDataFromServer();
     });
+
     $(".sell-btn").click(function () {
         clearAlerts();
         $("#acceptAction").prop('disabled', false);
@@ -94,6 +103,12 @@ $( document ).ready(function() {
         $("#actionType").text(transaction.action);
         $("#selectedCurrency").text(transaction.code);
 
+        getDataFromServer();
+
+
+    });
+
+    function getDataFromServer(){
         $.ajax({
             method: "GET",
             url: "/dashboard/transactionData",
@@ -103,10 +118,31 @@ $( document ).ready(function() {
                 wallet = data.wallet;
                 rates = data.rates;
 
-                updateSellModalValues(transaction.code);
+                if(rates === null){
+                    disableButtons();
+                    $("#connectionError").show();
+                }
+                else{
+                    enableButtons();
+                    refreshView();
+                    $("#connectionError").hide();
+                }
             }
         });
-    });
+    }
+
+    function refreshView(){
+        refreshValues(rates);
+        calculateTotalValues();
+
+        $("#funds").text('Available PLN: ' + wallet.funds);
+
+        if(transaction.action === "BUY")
+            updateBuyModalValues(transaction.code);
+
+        if(transaction.action === "SELL")
+            updateSellModalValues(transaction.code);
+    }
 
     function updateBuyModalValues(code) {
         var cost = 0;

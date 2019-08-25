@@ -1,5 +1,6 @@
 package com.wran.cantor.controller;
 
+import com.wran.cantor.config.websocket.SocketConnector;
 import com.wran.cantor.dto.ExchangeRatesDashboardDto;
 import com.wran.cantor.dto.TransactionDashboardDto;
 import com.wran.cantor.dto.WalletRatesDashboardDto;
@@ -38,21 +39,27 @@ public class DashboardController {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private SocketConnector socketConnector;
+
     @GetMapping("/")
     public String dashboardPage(Model model, Principal principal){
         User user = userService.findByUsername(principal.getName());
-        model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
-        model.addAttribute("wallet", converterService.convertToDashboardDto(user.getWallet()));
-        model.addAttribute("rates", converterService.convertToDashboardDto(currenciesService.getNewestExchangeRates()));
 
+        model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
         return "dashboard";
     }
     @GetMapping("/dashboard/transactionData")
     @ResponseBody
     public WalletRatesDashboardDto getRequiredTransactionData(Principal principal){
         User user = userService.findByUsername(principal.getName());
-        return new WalletRatesDashboardDto(converterService.convertToDashboardDto(user.getWallet()),
-                converterService.convertToDashboardDto(currenciesService.getNewestExchangeRates()));
+        if(socketConnector.isConnected()){
+            return new WalletRatesDashboardDto(converterService.convertToDashboardDto(user.getWallet()),
+                    converterService.convertToDashboardDto(currenciesService.getNewestExchangeRates()));
+        }
+        else
+            return new WalletRatesDashboardDto(converterService.convertToDashboardDto(user.getWallet()),
+                    null);
     }
 
     @GetMapping("/dashboard/latestRates")
@@ -65,13 +72,15 @@ public class DashboardController {
     @PostMapping("/dashboard/transaction")
     public ResponseEntity<String> processTransaction(@RequestBody TransactionDashboardDto transactionDto,
                                                      Principal principal){
-        User user = userService.findByUsername(principal.getName());
-        Transaction transaction = converterService.convertFromDashboardDto(transactionDto);
-        transaction.setUser(user);
-        transactionService.save(transaction);
+        if(socketConnector.isConnected()){
+            User user = userService.findByUsername(principal.getName());
+            Transaction transaction = converterService.convertFromDashboardDto(transactionDto);
+            transaction.setUser(user);
+            transactionService.save(transaction);
 
-        //BAD REQUEST
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Connection with the outside server has not been established.", HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 }

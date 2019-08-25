@@ -40,6 +40,8 @@ public class DtoConverterService {
 
 
     public ExchangeRatesDashboardDto convertToDashboardDto(ExchangeRates rates) {
+        if (rates == null) return null;
+
         return new ExchangeRatesDashboardDto(convertToDashboardDto(rates.getUsd()),
                 convertToDashboardDto(rates.getEur()), convertToDashboardDto(rates.getChf()),
                 convertToDashboardDto(rates.getRub()), convertToDashboardDto(rates.getCzk()),
