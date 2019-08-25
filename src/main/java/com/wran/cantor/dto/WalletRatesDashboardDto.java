@@ -5,13 +5,16 @@ import java.io.Serializable;
 public class WalletRatesDashboardDto implements Serializable {
 
     private WalletDashboardDto wallet;
+    private WalletDashboardDto cantorWallet;
     private ExchangeRatesDashboardDto rates;
+
 
     public WalletRatesDashboardDto() {
     }
 
-    public WalletRatesDashboardDto(WalletDashboardDto wallet, ExchangeRatesDashboardDto rates) {
+    public WalletRatesDashboardDto(WalletDashboardDto wallet, WalletDashboardDto cantorWallet, ExchangeRatesDashboardDto rates) {
         this.wallet = wallet;
+        this.cantorWallet = cantorWallet;
         this.rates = rates;
     }
 
@@ -29,5 +32,13 @@ public class WalletRatesDashboardDto implements Serializable {
 
     public void setRates(ExchangeRatesDashboardDto rates) {
         this.rates = rates;
+    }
+
+    public WalletDashboardDto getCantorWallet() {
+        return cantorWallet;
+    }
+
+    public void setCantorWallet(WalletDashboardDto cantorWallet) {
+        this.cantorWallet = cantorWallet;
     }
 }

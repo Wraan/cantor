@@ -3,6 +3,7 @@ package com.wran.cantor.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class RegisterUserForm implements Serializable {
     private String firstName;
@@ -11,7 +12,7 @@ public class RegisterUserForm implements Serializable {
     private String password;
     private String email;
 
-    private float funds;
+    private BigDecimal funds;
     @JsonProperty("usd")
     private int usdAmount;
     @JsonProperty("eur")
@@ -116,11 +117,11 @@ public class RegisterUserForm implements Serializable {
         this.gbpAmount = gbpAmount;
     }
 
-    public float getFunds() {
+    public BigDecimal getFunds() {
         return funds;
     }
 
-    public void setFunds(float funds) {
+    public void setFunds(BigDecimal funds) {
         this.funds = funds;
     }
 }

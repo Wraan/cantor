@@ -13,9 +13,10 @@ public class Transaction {
 
     private String action;
     private String code;
+    private int unit;
     private int amount;
     private Date date;
-    private float rate;
+    private double rate;
 
     @ManyToOne
     @JoinColumn(name="user_id")
@@ -24,19 +25,21 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(String action, String code, int amount, float rate, Date date, User user) {
+    public Transaction(String action, String code, int amount, int unit, double rate, Date date, User user) {
         this.action = action;
         this.code = code;
         this.amount = amount;
+        this.unit = unit;
         this.date = date;
         this.rate = rate;
         this.user = user;
     }
 
-    public Transaction(String action, String code, int amount, float rate, Date date) {
+    public Transaction(String action, String code, int amount, int unit, double rate, Date date) {
         this.action = action;
         this.code = code;
         this.amount = amount;
+        this.unit = unit;
         this.date = date;
         this.rate = rate;
     }
@@ -81,11 +84,11 @@ public class Transaction {
         this.date = date;
     }
 
-    public float getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(float rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 
@@ -95,5 +98,13 @@ public class Transaction {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getUnit() {
+        return unit;
+    }
+
+    public void setUnit(int unit) {
+        this.unit = unit;
     }
 }

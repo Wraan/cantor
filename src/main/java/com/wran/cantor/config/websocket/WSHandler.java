@@ -5,9 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wran.cantor.config.CurrenciesHistoryStorage;
 import com.wran.cantor.dto.ExchangeRatesDashboardDto;
 import com.wran.cantor.dto.ExchangeRatesWebsocketDto;
+import com.wran.cantor.dto.WalletDashboardDto;
+import com.wran.cantor.dto.WalletRatesDashboardDto;
 import com.wran.cantor.model.ExchangeRates;
+import com.wran.cantor.model.Wallet;
 import com.wran.cantor.service.CurrenciesService;
 import com.wran.cantor.service.DtoConverterService;
+import com.wran.cantor.service.TransactionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,24 +30,23 @@ public class WSHandler implements WebSocketHandler {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    @Lazy
-    @Autowired
+    @Lazy @Autowired
     private SimpMessagingTemplate template;
 
-    @Lazy
-    @Autowired
+    @Lazy @Autowired
     private CurrenciesHistoryStorage currenciesHistoryStorage;
 
-    @Lazy
-    @Autowired
+    @Lazy @Autowired
     private CurrenciesService currenciesService;
 
-    @Lazy
-    @Autowired
+    @Lazy @Autowired
     private DtoConverterService converterService;
 
     @Lazy @Autowired
     private SocketConnector socketConnector;
+
+    @Lazy @Autowired
+    private TransactionService transactionService;
 
     public WSHandler() {
     }
@@ -68,8 +71,17 @@ public class WSHandler implements WebSocketHandler {
             ExchangeRatesDashboardDto ratesDto = converterService.convertToDashboardDto(rates);
             currenciesHistoryStorage.addToList(ratesDto);
 
+            Wallet cantorWallet = transactionService.getCantorWallet();
+            WalletDashboardDto cantorWalletDto;
+            if(cantorWallet == null)
+                cantorWalletDto = null;
+            else
+                cantorWalletDto = converterService.convertToDashboardDto(cantorWallet);
+
+            WalletRatesDashboardDto walletRatesDto = new WalletRatesDashboardDto(null, cantorWalletDto, ratesDto);
+
             if(socketConnector.isConnected())
-                template.convertAndSend("/ws/rates", ratesDto);
+                template.convertAndSend("/ws/rates", walletRatesDto);
         }
     }
 

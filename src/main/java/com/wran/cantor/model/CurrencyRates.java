@@ -14,16 +14,16 @@ public class CurrencyRates {
     private int unit;
 
     @Column(name = "purchase_value")
-    private float purchaseValue;
+    private double purchaseValue;
     @Column(name = "sell_value")
-    private float sellValue;
+    private double sellValue;
     @Column(name = "average_value")
-    private float averageValue;
+    private double averageValue;
 
     public CurrencyRates() {
     }
 
-    public CurrencyRates(String code, int unit, float purchaseValue, float sellValue, float averageValue) {
+    public CurrencyRates(String code, int unit, double purchaseValue, double sellValue, double averageValue) {
         this.code = code;
         this.unit = unit;
         this.purchaseValue = purchaseValue;
@@ -55,27 +55,27 @@ public class CurrencyRates {
         this.unit = unit;
     }
 
-    public float getPurchaseValue() {
+    public double getPurchaseValue() {
         return purchaseValue;
     }
 
-    public void setPurchaseValue(float purchaseValue) {
+    public void setPurchaseValue(double purchaseValue) {
         this.purchaseValue = purchaseValue;
     }
 
-    public float getSellValue() {
+    public double getSellValue() {
         return sellValue;
     }
 
-    public void setSellValue(float sellValue) {
+    public void setSellValue(double sellValue) {
         this.sellValue = sellValue;
     }
 
-    public float getAverageValue() {
+    public double getAverageValue() {
         return averageValue;
     }
 
-    public void setAverageValue(float averageValue) {
+    public void setAverageValue(double averageValue) {
         this.averageValue = averageValue;
     }
 }

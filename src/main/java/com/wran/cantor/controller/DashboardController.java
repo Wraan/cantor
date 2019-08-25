@@ -55,11 +55,12 @@ public class DashboardController {
         User user = userService.findByUsername(principal.getName());
         if(socketConnector.isConnected()){
             return new WalletRatesDashboardDto(converterService.convertToDashboardDto(user.getWallet()),
+                    converterService.convertToDashboardDto(transactionService.getCantorWallet()),
                     converterService.convertToDashboardDto(currenciesService.getNewestExchangeRates()));
         }
         else
             return new WalletRatesDashboardDto(converterService.convertToDashboardDto(user.getWallet()),
-                    null);
+                    null, null);
     }
 
     @GetMapping("/dashboard/latestRates")
@@ -74,13 +75,22 @@ public class DashboardController {
                                                      Principal principal){
         if(socketConnector.isConnected()){
             User user = userService.findByUsername(principal.getName());
-            Transaction transaction = converterService.convertFromDashboardDto(transactionDto);
-            transaction.setUser(user);
-            transactionService.save(transaction);
 
-            return new ResponseEntity<>("OK", HttpStatus.OK);
+            Transaction transaction = converterService.convertFromDashboardDto(transactionDto);
+
+            if(transaction.getAmount() <= 0)
+                return new ResponseEntity<>("Currency amount has to be greater than 0.", HttpStatus.BAD_REQUEST);
+
+            transaction.setUser(user);
+            if(transactionService.exchangeWithCantor(transaction)){
+                transactionService.save(transaction);
+                return new ResponseEntity<>("OK", HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>("Could not proceed with transaction.", HttpStatus.BAD_REQUEST);
+            }
         }
-        return new ResponseEntity<>("Connection with the outside server has not been established.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Connection with the outside server has not been established.", HttpStatus.NOT_FOUND);
 
     }
 }

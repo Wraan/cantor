@@ -13,11 +13,11 @@ public class CurrencyRatesWebsocketDto implements Serializable {
     @JsonProperty("Unit")
     private int unit;
     @JsonProperty("PurchasePrice")
-    private float purchasePrice;
+    private double purchasePrice;
     @JsonProperty("SellPrice")
-    private float sellPrice;
+    private double sellPrice;
     @JsonProperty("AveragePrice")
-    private float averagePrice;
+    private double averagePrice;
 
     public CurrencyRatesWebsocketDto() {
     }
@@ -46,27 +46,27 @@ public class CurrencyRatesWebsocketDto implements Serializable {
         this.unit = unit;
     }
 
-    public float getPurchasePrice() {
+    public double getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(float purchasePrice) {
+    public void setPurchasePrice(double purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
 
-    public float getSellPrice() {
+    public double getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(float sellPrice) {
+    public void setSellPrice(double sellPrice) {
         this.sellPrice = sellPrice;
     }
 
-    public float getAveragePrice() {
+    public double getAveragePrice() {
         return averagePrice;
     }
 
-    public void setAveragePrice(float averagePrice) {
+    public void setAveragePrice(double averagePrice) {
         this.averagePrice = averagePrice;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.security.Principal;
 import java.text.DecimalFormat;
@@ -38,9 +39,9 @@ public class SettingsController {
     public ResponseEntity<String> changeFunds(@RequestParam("newValue") String fundsString, Principal principal){
         fundsString = new String(Base64.getDecoder().decode(fundsString.trim().getBytes()));
 
-        float funds;
+        BigDecimal funds;
         try{
-            funds = (float) (Math.floor(Float.parseFloat(fundsString) * 10000) / 10000); // 4 decimal places
+            funds = new BigDecimal(Double.toString(Math.floor(Double.parseDouble(fundsString) * 10000) / 10000)); // 4 decimal places
         } catch (NumberFormatException e){
             return new ResponseEntity<>("Funds format is invalid!", HttpStatus.NOT_ACCEPTABLE);
         }

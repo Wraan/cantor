@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
@@ -112,5 +113,9 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public List<User> saveAll(List<User> users){
+        return userRepository.saveAll(users);
     }
 }

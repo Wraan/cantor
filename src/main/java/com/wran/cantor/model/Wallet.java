@@ -1,6 +1,7 @@
 package com.wran.cantor.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "wallets")
@@ -10,7 +11,8 @@ public class Wallet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private float funds;
+    @Column(precision = 38, scale = 12)
+    private BigDecimal funds;
     private int usdAmount;
     private int eurAmount;
     private int chfAmount;
@@ -21,7 +23,7 @@ public class Wallet {
     public Wallet() {
     }
 
-    public Wallet(float funds, int usdAmount, int eurAmount, int chfAmount, int rubAmount,
+    public Wallet(BigDecimal funds, int usdAmount, int eurAmount, int chfAmount, int rubAmount,
                   int czkAmount, int gbpAmount) {
         this.funds = funds;
         this.usdAmount = usdAmount;
@@ -40,11 +42,11 @@ public class Wallet {
         this.id = id;
     }
 
-    public float getFunds() {
+    public BigDecimal getFunds() {
         return funds;
     }
 
-    public void setFunds(float funds) {
+    public void setFunds(BigDecimal funds) {
         this.funds = funds;
     }
 

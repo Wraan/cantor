@@ -6,13 +6,13 @@ public class CurrencyRatesDashboardDto implements Serializable {
 
     private String code;
     private int unit;
-    private float purchaseValue;
-    private float sellValue;
+    private double purchaseValue;
+    private double sellValue;
 
     public CurrencyRatesDashboardDto() {
     }
 
-    public CurrencyRatesDashboardDto(String code, int unit, float purchaseValue, float sellValue) {
+    public CurrencyRatesDashboardDto(String code, int unit, double purchaseValue, double sellValue) {
         this.code = code;
         this.unit = unit;
         this.purchaseValue = purchaseValue;
@@ -35,19 +35,19 @@ public class CurrencyRatesDashboardDto implements Serializable {
         this.unit = unit;
     }
 
-    public float getPurchaseValue() {
+    public double getPurchaseValue() {
         return purchaseValue;
     }
 
-    public void setPurchaseValue(float purcheaseValue) {
+    public void setPurchaseValue(double purcheaseValue) {
         this.purchaseValue = purcheaseValue;
     }
 
-    public float getSellValue() {
+    public double getSellValue() {
         return sellValue;
     }
 
-    public void setSellValue(float sellValue) {
+    public void setSellValue(double sellValue) {
         this.sellValue = sellValue;
     }
 }

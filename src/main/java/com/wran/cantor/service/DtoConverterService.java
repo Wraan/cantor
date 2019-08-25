@@ -42,7 +42,7 @@ public class DtoConverterService {
     public ExchangeRatesDashboardDto convertToDashboardDto(ExchangeRates rates) {
         if (rates == null) return null;
 
-        return new ExchangeRatesDashboardDto(convertToDashboardDto(rates.getUsd()),
+        return new ExchangeRatesDashboardDto(rates.getPublicationDate(), convertToDashboardDto(rates.getUsd()),
                 convertToDashboardDto(rates.getEur()), convertToDashboardDto(rates.getChf()),
                 convertToDashboardDto(rates.getRub()), convertToDashboardDto(rates.getCzk()),
                 convertToDashboardDto(rates.getGbp()));
@@ -78,9 +78,9 @@ public class DtoConverterService {
             case "GBP": currencyRates = exchangeRates.getGbp(); break;
             default: currencyRates = new CurrencyRates();
         }
-        float rate = transactionDto.getAction().equals("BUY") ? currencyRates.getPurchaseValue() : currencyRates.getSellValue();
+        double rate = transactionDto.getAction().equals("BUY") ? currencyRates.getPurchaseValue() : currencyRates.getSellValue();
 
         return new Transaction(transactionDto.getAction(), transactionDto.getCode(),
-                transactionDto.getAmount(), rate, new Date(System.currentTimeMillis()));
+                transactionDto.getAmount(), currencyRates.getUnit(), rate, new Date(System.currentTimeMillis()));
     }
 }

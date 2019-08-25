@@ -22,3 +22,7 @@ body {
 .navbar {
     padding-right: 0px !important;
 }
+
+.connectionError{
+    display: none;
+}

@@ -1,10 +1,11 @@
 package com.wran.cantor.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class WalletDashboardDto implements Serializable {
 
-    private float funds;
+    private BigDecimal funds;
     private int usdAmount;
     private int eurAmount;
     private int chfAmount;
@@ -15,7 +16,7 @@ public class WalletDashboardDto implements Serializable {
     public WalletDashboardDto() {
     }
 
-    public WalletDashboardDto(float funds, int usdAmount, int eurAmount, int chfAmount, int rubAmount,
+    public WalletDashboardDto(BigDecimal funds, int usdAmount, int eurAmount, int chfAmount, int rubAmount,
                               int czkAmount, int gbpAmount) {
         this.funds = funds;
         this.usdAmount = usdAmount;
@@ -26,11 +27,11 @@ public class WalletDashboardDto implements Serializable {
         this.gbpAmount = gbpAmount;
     }
 
-    public float getFunds() {
+    public BigDecimal getFunds() {
         return funds;
     }
 
-    public void setFunds(float funds) {
+    public void setFunds(BigDecimal funds) {
         this.funds = funds;
     }
 
