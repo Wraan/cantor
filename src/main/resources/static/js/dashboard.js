@@ -98,12 +98,12 @@ $( document ).ready(function() {
         $("#CZKCantorWalletAmount").text(cantorWallet.czkAmount);
         $("#GBPCantorWalletAmount").text(cantorWallet.gbpAmount);
 
-        $("#USDBuyPrice").text(rates.usd.purchaseValue);
-        $("#EURBuyPrice").text(rates.eur.purchaseValue);
-        $("#CHFBuyPrice").text(rates.chf.purchaseValue);
-        $("#RUBBuyPrice").text(rates.rub.purchaseValue);
-        $("#CZKBuyPrice").text(rates.czk.purchaseValue);
-        $("#GBPBuyPrice").text(rates.gbp.purchaseValue);
+        $("#USDBuyPrice").text(rates.usd.sellValue);
+        $("#EURBuyPrice").text(rates.eur.sellValue);
+        $("#CHFBuyPrice").text(rates.chf.sellValue);
+        $("#RUBBuyPrice").text(rates.rub.sellValue);
+        $("#CZKBuyPrice").text(rates.czk.sellValue);
+        $("#GBPBuyPrice").text(rates.gbp.sellValue);
 
         $("#USDBuyUnits").text(rates.usd.unit);
         $("#EURBuyUnits").text(rates.eur.unit);
@@ -112,21 +112,21 @@ $( document ).ready(function() {
         $("#CZKBuyUnits").text(rates.czk.unit);
         $("#GBPBuyUnits").text(rates.gbp.unit);
 
-        $("#USDSellPrice").text(rates.usd.sellValue);
-        $("#EURSellPrice").text(rates.eur.sellValue);
-        $("#CHFSellPrice").text(rates.chf.sellValue);
-        $("#RUBSellPrice").text(rates.rub.sellValue);
-        $("#CZKSellPrice").text(rates.czk.sellValue);
-        $("#GBPSellPrice").text(rates.gbp.sellValue);
+        $("#USDSellPrice").text(rates.usd.purchaseValue);
+        $("#EURSellPrice").text(rates.eur.purchaseValue);
+        $("#CHFSellPrice").text(rates.chf.purchaseValue);
+        $("#RUBSellPrice").text(rates.rub.purchaseValue);
+        $("#CZKSellPrice").text(rates.czk.purchaseValue);
+        $("#GBPSellPrice").text(rates.gbp.purchaseValue);
     }
 
     function calculateTotalValues() {
-        $("#USDWalletValue").text(Math.round(rates.usd.sellValue * wallet.usdAmount / rates.usd.unit * 10000) / 10000);
-        $("#EURWalletValue").text(Math.round(rates.eur.sellValue * wallet.eurAmount / rates.eur.unit * 10000) / 10000);
-        $("#CHFWalletValue").text(Math.round(rates.chf.sellValue * wallet.chfAmount / rates.chf.unit * 10000) / 10000);
-        $("#RUBWalletValue").text(Math.round(rates.rub.sellValue * wallet.rubAmount / rates.rub.unit * 10000) / 10000);
-        $("#CZKWalletValue").text(Math.round(rates.czk.sellValue * wallet.czkAmount / rates.czk.unit * 10000) / 10000);
-        $("#GBPWalletValue").text(Math.round(rates.gbp.sellValue * wallet.gbpAmount / rates.gbp.unit * 10000) / 10000);
+        $("#USDWalletValue").text(Math.round(rates.usd.purchaseValue * wallet.usdAmount / rates.usd.unit * 10000) / 10000);
+        $("#EURWalletValue").text(Math.round(rates.eur.purchaseValue * wallet.eurAmount / rates.eur.unit * 10000) / 10000);
+        $("#CHFWalletValue").text(Math.round(rates.chf.purchaseValue * wallet.chfAmount / rates.chf.unit * 10000) / 10000);
+        $("#RUBWalletValue").text(Math.round(rates.rub.purchaseValue * wallet.rubAmount / rates.rub.unit * 10000) / 10000);
+        $("#CZKWalletValue").text(Math.round(rates.czk.purchaseValue * wallet.czkAmount / rates.czk.unit * 10000) / 10000);
+        $("#GBPWalletValue").text(Math.round(rates.gbp.purchaseValue * wallet.gbpAmount / rates.gbp.unit * 10000) / 10000);
 
     }
 
@@ -179,27 +179,27 @@ $( document ).ready(function() {
         var cost = 0;
         if(code === "USD") {
             transaction.amount = $("#USDBuyAmount").val() * rates.usd.unit;
-            cost = transaction.amount * rates.usd.purchaseValue / rates.usd.unit;
+            cost = transaction.amount * rates.usd.sellValue / rates.usd.unit;
         }
         if(code === "EUR") {
             transaction.amount = $("#EURBuyAmount").val() * rates.eur.unit;
-            cost = transaction.amount * rates.eur.purchaseValue / rates.eur.unit;
+            cost = transaction.amount * rates.eur.sellValue / rates.eur.unit;
         }
         if(code === "CHF") {
             transaction.amount = $("#CHFBuyAmount").val() * rates.chf.unit;
-            cost = transaction.amount * rates.chf.purchaseValue / rates.chf.unit;
+            cost = transaction.amount * rates.chf.sellValue / rates.chf.unit;
         }
         if(code === "RUB") {
             transaction.amount = $("#RUBBuyAmount").val() * rates.rub.unit;
-            cost = transaction.amount * rates.rub.purchaseValue / rates.rub.unit;
+            cost = transaction.amount * rates.rub.sellValue / rates.rub.unit;
         }
         if(code === "CZK") {
             transaction.amount = $("#CZKBuyAmount").val() * rates.czk.unit;
-            cost = transaction.amount * rates.czk.purchaseValue / rates.czk.unit;
+            cost = transaction.amount * rates.czk.sellValue / rates.czk.unit;
         }
         if(code === "GBP") {
             transaction.amount = $("#GBPBuyAmount").val() * rates.gbp.unit;
-            cost = transaction.amount * rates.gbp.purchaseValue / rates.gbp.unit;
+            cost = transaction.amount * rates.gbp.sellValue / rates.gbp.unit;
         }
 
         $("#currencyAmount").text(transaction.amount);
@@ -209,27 +209,27 @@ $( document ).ready(function() {
         var cost = 0;
         if(code === "USD") {
             transaction.amount = $("#USDSellAmount").val();
-            cost = transaction.amount * rates.usd.sellValue / rates.usd.unit;
+            cost = transaction.amount * rates.usd.purchaseValue / rates.usd.unit;
         }
         if(code === "EUR") {
             transaction.amount = $("#EURSellAmount").val();
-            cost = transaction.amount * rates.eur.sellValue / rates.eur.unit;
+            cost = transaction.amount * rates.eur.purchaseValue / rates.eur.unit;
         }
         if(code === "CHF") {
             transaction.amount = $("#CHFSellAmount").val();
-            cost = transaction.amount * rates.chf.sellValue / rates.chf.unit;
+            cost = transaction.amount * rates.chf.purchaseValue / rates.chf.unit;
         }
         if(code === "RUB") {
             transaction.amount = $("#RUBSellAmount").val();
-            cost = transaction.amount * rates.rub.sellValue / rates.rub.unit;
+            cost = transaction.amount * rates.rub.purchaseValue / rates.rub.unit;
         }
         if(code === "CZK") {
             transaction.amount = $("#CZKSellAmount").val();
-            cost = transaction.amount * rates.czk.sellValue / rates.czk.unit;
+            cost = transaction.amount * rates.czk.purchaseValue / rates.czk.unit;
         }
         if(code === "GBP") {
             transaction.amount = $("#GBPSellAmount").val();
-            cost = transaction.amount * rates.gbp.sellValue / rates.gbp.unit;
+            cost = transaction.amount * rates.gbp.purchaseValue / rates.gbp.unit;
         }
 
         $("#currencyAmount").text(transaction.amount);

@@ -78,7 +78,7 @@ public class DtoConverterService {
             case "GBP": currencyRates = exchangeRates.getGbp(); break;
             default: currencyRates = new CurrencyRates();
         }
-        double rate = transactionDto.getAction().equals("BUY") ? currencyRates.getPurchaseValue() : currencyRates.getSellValue();
+        double rate = transactionDto.getAction().equals("BUY") ? currencyRates.getSellValue() : currencyRates.getPurchaseValue();
 
         return new Transaction(transactionDto.getAction(), transactionDto.getCode(),
                 transactionDto.getAmount(), currencyRates.getUnit(), rate, new Date(System.currentTimeMillis()));
