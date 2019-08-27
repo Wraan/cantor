@@ -30,7 +30,7 @@ docker run --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_USER=admin 
 docker run -p 8080:8080 --name cantor --link postgres:postgres -d zibix12/cantor:1.0
 ```
 
-After a moment the application will be running on port 8080. You can access it by reaching the `localhost:8080` address.
+After a moment the application will be running on port 8080. You can access it by reaching the `localhost:8080` address. The database is set to `create-drop mode`, so each restart will wipe all the data from the database. On the startup there are created 2 users: `admin` and `user`, both with `password` password.
 
 ## Screenshots
 https://prnt.sc/oxpy9t
